@@ -683,6 +683,9 @@ a:hover { color: var(--accent); }
 .project__media--stage {
   /* portrait content — a tall box wastes far less room than a wide one */
   aspect-ratio: 4 / 5;
+  /* ...but on a wide screen 4:5 makes the tile taller than the viewport is
+     comfortable with (81% of it at 1440x900), so cap the height. */
+  max-height: min(62vh, 560px);
   background: var(--paper-2);
   display: flex;
   align-items: center;
