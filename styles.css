@@ -968,3 +968,8 @@ a:hover { color: var(--accent); }
 .project__media--phones { aspect-ratio: 2259 / 1332; background: #fff; }
 .project__media--phones img { object-fit: contain; }
 
+
+/* The Plural map is 1600x1061 — squarer than the default 20:11 hero band, so
+   it sat small inside it. Match the band to the image; a dense map needs the
+   pixels more than the band needs its proportions. */
+.cs-hero--plural { aspect-ratio: 1600 / 1061; }
