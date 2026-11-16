@@ -690,11 +690,14 @@ a:hover { color: var(--accent); }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(28px, 4vw, 56px) clamp(48px, 8vw, 112px);
+  padding: clamp(44px, 5.5vw, 80px) clamp(48px, 8vw, 112px);
 }
 .project__media--stage .phone {
-  height: min(46vh, 440px);
-  width: auto;
+  /* height AND width spelled out: some Safari versions ignore aspect-ratio on
+     a flex item and size it from the video instead, which crops the phone */
+  --phone-h: min(46vh, 440px);
+  height: var(--phone-h);
+  width: calc(var(--phone-h) * 480 / 1002);
   flex: none;
   transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
@@ -705,7 +708,7 @@ a:hover { color: var(--accent); }
   .project--phone .project__media--stage { width: auto; }
 }
 @media (max-width: 900px) {
-  .project__media--stage .phone { height: min(60vh, 440px); }
+  .project__media--stage .phone { --phone-h: min(60vh, 440px); }
 }
 .project:hover .project__media--stage .phone { transform: scale(1.02); }
 .project:hover .project__media--stage video { transform: none; }
