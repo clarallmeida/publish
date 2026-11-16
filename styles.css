@@ -681,26 +681,31 @@ a:hover { color: var(--accent); }
    the black corners are clipped and the card's own paper shows through.
    pointer-events lets the click reach the link underneath. */
 .project__media--stage {
-  /* portrait content — a tall box wastes far less room than a wide one */
-  aspect-ratio: 4 / 5;
-  /* ...but on a wide screen 4:5 makes the tile taller than the viewport is
-     comfortable with (81% of it at 1440x900). Shrink it by capping the WIDTH:
-     the tile stays 4:5 and keeps hugging the phone, and its height (so the
-     phone's height: 100%) stays derived from the width. Capping max-height
-     instead left a wide squat band, and Safari resolved the phone's 100%
-     against the uncapped height, so the phone was cropped. 50vh wide = 62.5vh
-     tall. */
-  max-width: min(100%, 50vh);
+  /* The phone sets the tile's size, not the other way round: the phone gets
+     a fixed height (vh, so it scales with the screen) and its width follows
+     from its aspect ratio. Every browser resolves that the same way, whereas
+     a phone at height: 100% of an aspect-ratio box is cropped in Safari. */
+  aspect-ratio: auto;
   background: var(--paper-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  /* let the phone sit in the band rather than fill it edge to edge */
-  padding: clamp(20px, 3.5vw, 48px);
+  padding: clamp(28px, 4vw, 56px) clamp(48px, 8vw, 112px);
 }
 .project__media--stage .phone {
-  height: 100%;
+  height: min(46vh, 440px);
+  width: auto;
+  flex: none;
   transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+/* Two columns: the media column is exactly as wide as the tile, so the text
+   sits beside the phone instead of across an empty gap. */
+@media (min-width: 901px) {
+  .project--phone { grid-template-columns: auto minmax(0, 1fr); }
+  .project--phone .project__media--stage { width: auto; }
+}
+@media (max-width: 900px) {
+  .project__media--stage .phone { height: min(60vh, 440px); }
 }
 .project:hover .project__media--stage .phone { transform: scale(1.02); }
 .project:hover .project__media--stage video { transform: none; }
