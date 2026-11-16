@@ -684,8 +684,13 @@ a:hover { color: var(--accent); }
   /* portrait content — a tall box wastes far less room than a wide one */
   aspect-ratio: 4 / 5;
   /* ...but on a wide screen 4:5 makes the tile taller than the viewport is
-     comfortable with (81% of it at 1440x900), so cap the height. */
-  max-height: min(62vh, 560px);
+     comfortable with (81% of it at 1440x900). Shrink it by capping the WIDTH:
+     the tile stays 4:5 and keeps hugging the phone, and its height (so the
+     phone's height: 100%) stays derived from the width. Capping max-height
+     instead left a wide squat band, and Safari resolved the phone's 100%
+     against the uncapped height, so the phone was cropped. 50vh wide = 62.5vh
+     tall. */
+  max-width: min(100%, 50vh);
   background: var(--paper-2);
   display: flex;
   align-items: center;
